@@ -17,5 +17,5 @@ vigenere alphabet key message = undefined
 cycle - слепливающийся массив [1,2,3] = [1,2,3,1,2,3,1,2,3....]
 elemIndex = indexOf
 (!!) - получение элемента массива по индексу
-
+zipWith
 */

@@ -4,19 +4,18 @@ main :: IO ()
 
 vigenere :: [Char] -> [Int] -> String -> String
 vigenere alphabet keys message = do
-    map getShiftedChar message
-    where 
-        getShiftedChar char = if getIndexOfCharInAlphabet char /= -1 
-            then ((cycle alphabet) !! (getShiftedIndexOf char)) 
+    zipWith shiftChar message keys
+
+    where
+        shiftChar char key = if getIndexOfCharInAlphabet char /= -1 
+            then ((cycle alphabet) !! (getPositiveIndex ((getIndexOfCharInAlphabet char) + key)))
             else char
-        getShiftedIndexOf char = ((getIndexOfCharInAlphabet char) + (keys !! (getIndexOfCharInMessage char)))
-        getIndexOfCharInMessage char = case elemIndex char message of
-            Just n  -> n
-            Nothing -> 0
         getIndexOfCharInAlphabet char = case elemIndex char alphabet of
             Just n  -> n
             Nothing -> -1
+        getPositiveIndex index = if index > 0 then index else ((length alphabet) + index)
 
 main = do 
-    let result = vigenere ['a', 'b', 'c', 'd', 'e', 'f'] [1, 2, 1, 2, 1] "abcdfo"
+    let result = vigenere ['a', 'b', 'c', 'd', 'e', 'f'] [-1, 5, 1, 2, 1, 1] "abcdfz"
     print (result)
+
