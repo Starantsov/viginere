@@ -6,7 +6,7 @@ vigenere alphabet keys message = do
 
     where
         shiftChar char key = if getIndexOfCharInAlphabet char /= -1 
-            then (alphabet !! (mod ((getIndexOfCharInAlphabet char) + key) (length alphabet)))
+            then alphabet !! (mod ((getIndexOfCharInAlphabet char) + key) (length alphabet))
             else char
         getIndexOfCharInAlphabet char = case elemIndex char alphabet of
             Just n  -> n
@@ -17,7 +17,7 @@ decodeVigenere alphabet keys message = vigenere alphabet (map negate keys) messa
 main :: IO ()
 main = do 
     let result = vigenere ['a', 'b', 'c'] [-4, 10] "abc"
-    let decodedMessage = decodeVigenere ['a', 'b', 'c', 'd', 'e', 'f'] [-1, 2] result
+    let decodedMessage = decodeVigenere ['a', 'b', 'c'] [-4, 10] result
     print ("Encoded to: " ++ result)
     print ("Decoded to: " ++ decodedMessage)
 
